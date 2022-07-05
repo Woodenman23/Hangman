@@ -1,6 +1,7 @@
 ## HANGMAN GAME
 import random
 from pyparsing import alphas
+from helpers import draw
 
 # keep a track of guessed letters
 guessed = set()
@@ -26,12 +27,15 @@ def hangman():
     lives = 7
     while lives > 0:
 
+        draw(lives)
+
         if letters.issubset(guessed):
             print("You win!!")
             return 0
 
         print(f"You have {lives} lives left.")
-        print("You have guessed: ", guessed)
+        if guessed:
+            print("You have guessed: ", guessed)
         guess = input("Guess a letter: " ).upper()
         
         print("\n")
@@ -54,7 +58,8 @@ def hangman():
                     print("_", end="")
         print("\n")
 
-    print("YOU LOSE!!")
+    draw(lives)
+    print(f"YOU LOSE!! The word was {word.lower()}")
 
 hangman()
 # if incorrect, store letter somewhere
